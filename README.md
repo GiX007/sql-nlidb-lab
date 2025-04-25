@@ -12,3 +12,4 @@ This project is centered around a movie database inspired by the IMDb schema. Wh
 
 ## 📂 Repository Structure
 
+imdb-sql-lab/ │ ├── schema/ │ └── imdb_schema.png # ER diagram of the IMDb database │ ├── queries/ # Organized SQL queries by difficulty │ ├── 01_basic_select.sql │ ├── 02_joins.sql │ ├── 03_aggregations.sql │ ├── 04_subqueries.sql │ ├── 05_ctes.sql │ ├── 06_window_functions.sql │ └── 07_advanced.sql │ ├── answers/ # Written explanations and expected results │ ├── 01_basic_select_answers.md │ ├── 02_joins_answers.md │ └── ... │ └── README.md
