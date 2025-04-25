@@ -1,15 +1,14 @@
-# 🎬 IMDb SQL Lab
+This repository contains a series of structured SQL query files and schema references designed for practicing and mastering SQL using a relational IMDb-style movie database. It covers everything from basic SELECT statements to advanced PostgreSQL features such as CTEs and window functions.
 
-**IMDb SQL Lab** is a PostgreSQL learning project built on an IMDb-style relational schema. It provides a rich collection of SQL queries — from simple SELECTs to advanced window functions — designed to sharpen your SQL skills in a real-world context.
+Contents:
 
----
+schema/imdb_schema.png
 
-## 📌 About
+  * An entity-relationship diagram illustrating the IMDb-style schema used in the queries.
 
-This project is centered around a movie database inspired by the IMDb schema. Whether you're just starting with SQL or looking to master joins, aggregations, subqueries, and CTEs — this lab offers structured exercises and sample answers to guide your journey.
+  * Serves as a reference for understanding table relationships, foreign keys, and attributes.
 
----
+queries
 
-## 📂 Repository Structure
 
-imdb-sql-lab/ │ ├── schema/ │ └── imdb_schema.png # ER diagram of the IMDb database │ ├── queries/ # Organized SQL queries by difficulty │ ├── 01_basic_select.sql │ ├── 02_joins.sql │ ├── 03_aggregations.sql │ ├── 04_subqueries.sql │ ├── 05_ctes.sql │ ├── 06_window_functions.sql │ └── 07_advanced.sql │ ├── answers/ # Written explanations and expected results │ ├── 01_basic_select_answers.md │ ├── 02_joins_answers.md │ └── ... │ └── README.md
+Feel free to explore each query file to build confidence in SQL, from the fundamentals to advanced PostgreSQL techniques. If you encounter issues or have suggestions, open an issue or start a discussion. Note: This project assumes you have access to a PostgreSQL database loaded with a compatible IMDb-like dataset. If you need help importing the schema, let me know!
