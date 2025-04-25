@@ -17,7 +17,7 @@ queries
 
   * queries/02_joins.sql
 
-     * Explores INNER JOINs, LEFT JOINs, and multi-table queries to fetch related data like titles, companies, and production years.
+     * Explores INNER JOINs, LEFT JOINs, and multi-table queries to fetch related data like titles, companies, and actors.
 
   * queries/03_aggregations.sql
 
