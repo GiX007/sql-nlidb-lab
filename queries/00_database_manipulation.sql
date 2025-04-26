@@ -76,7 +76,7 @@ SELECT *
 FROM moviedb.movies
 WHERE production_year > 2015;
 
--- 15. Insert a new movie and immediately retrieve its generated ID (using RETURNING)
+-- 15. Insert a new movie and immediately retrieve its generated ID using RETURNING
 -- (Notice: RETURNING allows us to immediately retrieve the generated ID or other fields after an INSERT without running a separate SELECT)
 INSERT INTO moviedb.movies (title, production_year, genre)
 VALUES ('Dune', 2021, 'Science Fiction')
