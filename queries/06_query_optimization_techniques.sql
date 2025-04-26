@@ -233,7 +233,7 @@ SELECT title FROM title WHERE production_year = 2000
 UNION ALL
 SELECT title FROM title WHERE production_year = 2001;
 -- (Explanation: UNION sorts and removes duplicates (extra work).
--- UNION ALL simply appends results without checking, much faster if duplicates are not an issue.)
+-- UNION ALL simply appends results without checking, much faster if duplicates are not an issue)
 
 
 -- 13. Avoid functions on columns during JOINs
