@@ -7,6 +7,8 @@
 -- - INSERT: add new records (rows) into a table
 -- - UPDATE: modify existing records
 -- - DELETE: remove records from a table
+-- DDL (Data Definition Language) commands define and modify database structure (schemas, tables, indexes).
+-- DML (Data Manipulation Language) commands manipulate the data inside tables (INSERT, UPDATE, DELETE, SELECT).
 -- In this file, we also demonstrate exporting query results to files (using COPY) and analyzing query performance (using EXPLAIN)
 
 -- 1. Create a new schema
