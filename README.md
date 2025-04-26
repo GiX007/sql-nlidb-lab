@@ -25,7 +25,7 @@ queries
 
   * queries/04_subqueries.sql
 
-     * Contains examples of scalar, correlated, and IN/EXISTS subqueries for intermediate learners.
+     * Includes examples of scalar, correlated, and IN/EXISTS subqueries, progressing from basic to intermediate level.
 
   * queries/05_ctes.sql
 
