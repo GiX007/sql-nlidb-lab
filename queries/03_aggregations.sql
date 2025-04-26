@@ -5,7 +5,7 @@
 -- GROUP BY [column(s) you want to group results by]
 -- HAVING [optional filtering after aggregation — applies to the aggregated values, not to individual rows]
 -- Example: SELECT production_year, COUNT(*) 
---			FROM title
+--	    FROM title
 --          WHERE production_year IS NOT NULL
 --          GROUP BY production_year
 --          HAVING COUNT(*) > 50
