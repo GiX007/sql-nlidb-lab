@@ -5,9 +5,9 @@
 -- OR
 -- HAVING [aggregate condition using subquery]
 -- Example: SELECT AVG(movie_count) 
---			FROM (SELECT production_year, COUNT(*) AS movie_count 
---  			  FROM title 
---				  GROUP BY production_year) AS yearly_counts;
+--	    FROM (SELECT production_year, COUNT(*) AS movie_count 
+--  	    FROM title 
+--	    GROUP BY production_year) AS yearly_counts;
 -- (Subqueries allow us to prepare intermediate results inside another query — for example, first grouping data, then applying calculations like AVG or SUM on the grouped output.
 --  We usually use subqueries when we need to first aggregate, filter, or transform data and then apply further operations on the prepared intermediate results.
 --  The typical thinking is: build the inner query (prepare data), then use it in the outer query to complete the final task)
@@ -42,7 +42,7 @@ WHERE kind_id = (	-- 1st condition: find all video games
     FROM kind_type
     WHERE kind ILIKE '%video game%'
 )
-AND production_year = (			 -- 2nd condition: find the latest production year only for video games
+AND production_year = (		-- 2nd condition: find the latest production year only for video games
     SELECT MAX(production_year) -- (pick the latest video game based on year)
     FROM title
     WHERE kind_id = (
@@ -59,7 +59,7 @@ FROM title
 WHERE production_year IS NOT NULL
 GROUP BY production_year
 HAVING COUNT(*) > (				
-    SELECT AVG(yearly_count)	-- (2. take the avg of results of 1 which is a number)
+    SELECT AVG(yearly_count)			-- (2. take the avg of results of 1 which is a number)
     FROM (
         SELECT production_year, COUNT(*) AS yearly_count	-- (1. find how many movies released in each year)
         FROM title
@@ -80,7 +80,7 @@ HAVING COUNT(*) > (
     SELECT AVG(actor_count)		-- (2. get the avg number of actors per movie)
     FROM (
         SELECT ci2.movie_id, COUNT(*) AS actor_count	-- (1. find how many actors each movie has. Notice that no need to join title table as movie_id is enough)
-        FROM cast_info ci2								-- (Notice the aliases became ci2, rt2 instead of ci, rt we have above)
+        FROM cast_info ci2				-- (Notice the aliases became ci2, rt2 instead of ci, rt we have above)
         JOIN role_type rt2 ON rt2.id = ci2.role_id
         WHERE rt2.role ILIKE '%actor%'
         GROUP BY ci2.movie_id
@@ -113,7 +113,7 @@ ORDER BY starring_roles DESC;
 -- 7. List actors who have appeared in movies tagged 'horror'
 -- (This version uses a subquery: we first find all person_ids of actors who acted in horror movies, then retrieve their names from the 'name' table using WHERE IN.
 --  Note: We could also solve this without a subquery by using direct JOINs. 
---	The result would be the same, but using JOINs may improve performance in large datasets, because SQL engines can better optimize JOIN operations with indexes compared to IN + subquery)
+--  The result would be the same, but using JOINs may improve performance in large datasets, because SQL engines can better optimize JOIN operations with indexes compared to IN + subquery)
 SELECT DISTINCT n.name
 FROM name n
 WHERE n.id IN (
@@ -221,7 +221,7 @@ WHERE t.id IN (
 -- (The subquery counts how many movies are tagged with the keyword 'action'.
 --  In the main query, we GROUP BY each keyword and count how many movies it appears in.
 --  Then, in the HAVING clause, we compare each keyword's count to the 'action' keyword count.
---  Only keywords with a higher movie count than 'action' are included in the results.)
+--  Only keywords with a higher movie count than 'action' are included in the results)
 SELECT k.keyword
 FROM keyword k
 JOIN movie_keyword mk ON k.id = mk.keyword_id
@@ -267,9 +267,8 @@ GROUP BY n.name
 HAVING COUNT(DISTINCT kt.kind) = 2;
 -- (Golden Rule: When checking if two different conditions are separately true (e.g., acted in both movies and video games),
 --  using multiple EXISTS subqueries is faster and more precise than using JOINs and GROUP BY.
---  EXISTS stops as soon as it finds the first matching row (early exit),
---  while JOINs build all possible combinations between tables, creating duplicates and inflating the result set,
---  which slows down execution and explains why we get more results)
+--  EXISTS stops as soon as it finds the first matching row (early exit), 
+--  while JOINs build all possible combinations between tables, creating duplicates and inflating the result set, which slows down execution and explains why we get more results)
 
 -- 15. Find companies that have produced at least one 'comedy' and one 'drama'
 -- (We use two EXISTS subqueries to ensure both genres are produced by the company)
