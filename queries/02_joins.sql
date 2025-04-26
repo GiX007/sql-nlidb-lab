@@ -101,7 +101,7 @@ SELECT t.title, cn.name AS company
 FROM title t
 LEFT JOIN movie_companies mc ON t.id = mc.movie_id
 LEFT JOIN company_name cn ON mc.company_id = cn.id;
---ORDER BY cn.name DESC; -- (Uncomment and drop ';' from above to see titles without a company with NULL values, or run: SELECT * FROM title t WHERE t.id NOT IN (SELECT movie_id FROM movie_companies);)
+-- ORDER BY cn.name DESC; -- (Uncomment and drop ';' from above to see titles without a company with NULL values, or run: SELECT * FROM title t WHERE t.id NOT IN (SELECT movie_id FROM movie_companies);)
 -- (Try without LEFT to get the difference: titles without a company will disappear - you get less results)
 
 -- 12. Show all actors and their roles in movies
