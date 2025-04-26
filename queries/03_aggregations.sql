@@ -191,7 +191,7 @@ LIMIT 1;
 -- (COUNT(*) counts the total number of movies produced by each company.
 --  COUNT(DISTINCT t.production_year) counts how many different years the company has released movies.
 --  Multiplying by 1.0 ensures decimal division (otherwise SQL would do integer division and truncate the result).
---  This gives the average number of movies per year for each company.)
+--  This gives the average number of movies per year for each company)
 SELECT c.name AS company, 
        ROUND(COUNT(*) * 1.0 / COUNT(DISTINCT t.production_year), 2) AS avg_movies_per_year
 FROM company_name c
