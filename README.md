@@ -1,14 +1,19 @@
-This repository contains a series of structured SQL query files and schema references designed for practicing and mastering SQL using a relational IMDb-style movie database. It covers everything from basic SELECT statements to advanced PostgreSQL features such as CTEs and window functions.
+# IMDb SQL Practice Repository
 
-Contents:
+This repository contains a series of structured SQL query files and schema references designed for practicing and mastering SQL using a relational IMDb-style movie database. 
 
-schema/imdb_schema.png
+It covers everything from basic SELECT statements to advanced PostgreSQL features such as CTEs, subqueries, window functions, and query optimization.
+
+
+## Contents:
+
+## schema/imdb_schema.png
 
   * An entity-relationship diagram illustrating the IMDb-style schema used in the queries.
 
   * Serves as a reference for understanding table relationships, foreign keys, and attributes.
 
-queries
+## queries/
   * queries/01_basic_selects.sql
 
      * Includes beginner-friendly SQL queries to retrieve rows, apply filters, and use basic WHERE clauses.
