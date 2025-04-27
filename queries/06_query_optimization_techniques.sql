@@ -2,6 +2,26 @@
 -- In this file, we show 20+ progressively more advanced examples of query optimizations, from simple tricks to advanced performance techniques.
 
 -- Short Introduction to Query Optimization:
+
+-- How SQL Queries Are Executed Internally:
+-- When the database engine runs a query, it typically processes the steps in this logical order:
+-- 1️⃣ FROM and JOIN: Load and combine rows from tables (building the base dataset)
+-- 2️⃣ WHERE: Filter rows early based on conditions
+-- 3️⃣ GROUP BY: Group the remaining rows if aggregation is needed
+-- 4️⃣ HAVING: Filter groups after aggregation (e.g., COUNT > 5)
+-- 5️⃣ SELECT: Choose which columns to output
+-- 6️⃣ DISTINCT: Remove duplicate rows if requested
+-- 7️⃣ ORDER BY: Sort the final result
+-- 8️⃣ LIMIT/OFFSET: Restrict the number of rows returned
+
+-- Therefore, to optimize a query, we aim to:
+-- - Reduce data as early as possible (before JOINs and GROUP BY)
+-- - Minimize the size of intermediate results
+-- - Avoid unnecessary columns and operations
+-- - Let the database engine use indexes naturally
+
+-- Good optimization means working with smaller datasets at each stage, saving CPU, memory, and IO while delivering correct results faster.
+
 -- Query optimization is the process of improving the performance of SQL queries by making them faster and more efficient by using less data, while still producing the same correct results.
 -- Optimization is important because inefficient queries can consume more CPU, memory, and disk resources, causing slowdowns especially on large datasets.
 
