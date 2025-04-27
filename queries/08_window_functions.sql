@@ -30,8 +30,7 @@ FROM name n
 JOIN cast_info ci ON n.id = ci.person_id
 GROUP BY n.name;
 -- (RANK() assigns the same rank to actors with identical movie counts — gaps appear if ties exist. For example: 
---  If two actors each have 50 movies, they both get rank 1, and the next actor gets rank 3, not 2.
---  Use DENSE_RANK() if you want no gaps instead.)
+--  If two actors each have 50 movies, they both get rank 1, and the next actor gets rank 3, not 2. Use DENSE_RANK() if you want no gaps instead.)
 
 -- 3. Find the earliest movie per company
 SELECT cn.name AS company_name, t.title, t.production_year,
@@ -39,8 +38,7 @@ SELECT cn.name AS company_name, t.title, t.production_year,
 FROM company_name cn
 JOIN movie_companies mc ON cn.id = mc.company_id
 JOIN title t ON t.id = mc.movie_id;
--- (PARTITION BY company splits the dataset into separate groups for each company name,
---  then ROW_NUMBER() assigns unique numbers ordered by production year inside each group.
+-- (PARTITION BY company splits the dataset into separate groups for each company name, then ROW_NUMBER() assigns unique numbers ordered by production year inside each group.
 --  Unlike Query 1 where numbering was global, here numbering resets per company after each partition.
 --  This helps us easily find the earliest (or second, third, etc.) movie produced by each company separately.)
 
@@ -109,10 +107,8 @@ SELECT title, production_year,
        MAX(production_year) OVER () AS latest_year
 FROM title;
 -- (MAX() OVER () calculates the maximum production year across the entire title table, but keeps the original movie rows visible without collapsing them.
---  Every row gets the same latest production year as a reference.
---  This allows us to easily compare each movie's production year against the latest movie, 
---  for tasks like calculating movie age, filtering movies released close to the newest ones,
---  or building dynamic relative queries without using subqueries.)
+--  Every row gets the same latest production year as a reference. This allows us to easily compare each movie's production year against the latest movie, 
+--  for tasks like calculating movie age, filtering movies released close to the newest ones, or building dynamic relative queries without using subqueries.)
 
 -- 11. Show cumulative count of movies produced after 2000
 SELECT title, production_year,
@@ -130,8 +126,7 @@ FROM company_name cn
 JOIN movie_companies mc ON cn.id = mc.company_id
 JOIN title t ON t.id = mc.movie_id;
 -- (Shows how many years passed between two consecutive movie productions for each company. For the first company's movie the difference is null.
---  Partitioning by company ensures that year differences are calculated only within the same company,
---  helping us analyze how frequently each company releases movies over time.
+--  Partitioning by company ensures that year differences are calculated only within the same company, helping us analyze how frequently each company releases movies over time.
 --  Without partitioning, we would just compare random movies across all companies, which is not meaningful.)
 
 -- 13. Rank companies by number of movies produced each year
