@@ -377,7 +377,6 @@ JOIN cast_info ci ON ft.id = ci.movie_id
 JOIN filtered_names fn ON fn.id = ci.person_id;
 -- (Explanation: By reducing the size of both tables before joining (using CTEs to pre-filter), we drastically cut down the number of rows involved in joins, speeding up the query significantly.)
 
-
 -- =========================================================================
 -- Closing Notes:
 -- Good query writing saves hours of debugging and terabytes of resources!
@@ -402,5 +401,4 @@ JOIN filtered_names fn ON fn.id = ci.person_id;
 -- - Export only the needed columns when writing results to files (COPY).
 -- - Replace unnecessary subqueries with simple JOINs.
 -- - Always think set-based (operate on groups of rows, not one-by-one).
-
 -- =========================================================================
