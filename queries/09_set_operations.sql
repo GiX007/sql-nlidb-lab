@@ -237,7 +237,6 @@ WHERE rt.role ILIKE '%director%';
 -- (Merge actors and directors.)
 
 -- 13. Find people who both acted AND directed
-
 SELECT n.name
 FROM name n
 JOIN cast_info ci ON n.id = ci.person_id
@@ -254,7 +253,6 @@ WHERE rt.role ILIKE '%director%';
 -- (People who acted AND directed.)
 
 -- 14. Find companies that have produced drama but NOT horror
-
 SELECT cn.name
 FROM company_name cn
 JOIN movie_companies mc ON cn.id = mc.company_id
