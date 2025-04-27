@@ -41,6 +41,14 @@ It covers everything from basic SELECT statements to advanced PostgreSQL feature
 - **queries/07_query_optimization_examples.sql**
   - A set of 20 real-world examples showing side-by-side normal vs optimized queries.
   - Covers query restructuring, early limiting, CTE optimization, EXISTS usage, proper NULL handling, minimizing joins, and performance tricks.
+    
+- **queries/08_window_functions.sql**
+  - Introduces powerful window functions like ROW_NUMBER(), RANK(), LAG(), LEAD(), and PERCENT_RANK().
+  - Covers how to perform advanced row-based calculations across partitions without collapsing result sets.
+
+- **queries/09_set_operations.sql**
+  - Demonstrates SQL set operations: UNION, UNION ALL, INTERSECT, and EXCEPT with practical examples.
+  - Explains differences in performance, duplicate handling, and result merging strategies.
 
 ---
 
