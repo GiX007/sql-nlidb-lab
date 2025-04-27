@@ -1,4 +1,4 @@
--- Normal vs Optimized queries demonstrating SQL optimization techniques using the IMDb-style database.
+-- Normal vs. Optimized queries demonstrating SQL optimization techniques using the IMDb-style database.
 
 -- ============================================================================
 -- 1. Find companies containing the word "Disney" (Basic filter optimization)
