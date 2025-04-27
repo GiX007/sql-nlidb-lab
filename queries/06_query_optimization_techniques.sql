@@ -1,9 +1,9 @@
 -- Techniques and examples for improving query performance using an IMDb-style database.
--- In this file, we show 20+ progressively more advanced examples of query optimizations, from simple tricks to advanced performance techniques
+-- In this file, we show 20+ progressively more advanced examples of query optimizations, from simple tricks to advanced performance techniques.
 
 -- Short Introduction to Query Optimization:
 -- Query optimization is the process of improving the performance of SQL queries by making them faster and more efficient by using less data, while still producing the same correct results.
--- Optimization is important because inefficient queries can consume more CPU, memory, and disk resources, causing slowdowns especially on large datasets
+-- Optimization is important because inefficient queries can consume more CPU, memory, and disk resources, causing slowdowns especially on large datasets.
 
 -- Why we optimize queries:
 -- - Reduce execution time (make queries faster)
@@ -31,7 +31,7 @@
 -- FROM title
 -- WHERE production_year > 2010;
 
--- (Explanation: By selecting only two columns instead of all (*), and adding a WHERE filter to restrict rows, the query becomes faster, lighter on memory, and allows the database to optimize better)
+-- (Explanation: By selecting only two columns instead of all (*), and adding a WHERE filter to restrict rows, the query becomes faster, lighter on memory, and allows the database to optimize better.)
 
 
 -- 1. Filter Early (apply WHERE as soon as possible to reduce data scanned)
@@ -44,7 +44,7 @@ FROM title;
 SELECT title, production_year
 FROM title
 WHERE production_year > 2010;
--- (Explanation: By filtering with WHERE, the database processes fewer rows immediately, making the query faster and lighter)
+-- (Explanation: By filtering with WHERE, the database processes fewer rows immediately, making the query faster and lighter.)
 
 
 -- 2. Select Only Needed Columns (avoid SELECT *)
@@ -58,7 +58,7 @@ WHERE production_year > 2010;
 SELECT title, production_year
 FROM title
 WHERE production_year > 2010;
--- (Explanation: Selecting only the necessary columns reduces memory usage, network transfer, and processing time)
+-- (Explanation: Selecting only the necessary columns reduces memory usage, network transfer, and processing time.)
 
 
 -- 3. Limit Rows Early (use LIMIT when full results are not needed)
@@ -73,7 +73,7 @@ SELECT title, production_year
 FROM title
 WHERE production_year IS NOT NULL
 LIMIT 100;
--- (Explanation: LIMIT reduces the number of rows processed, sorted, or transferred, improving speed when only part of the results are needed)
+-- (Explanation: LIMIT reduces the number of rows processed, sorted, or transferred, improving speed when only part of the results are needed.)
 
 
 -- 4. Prefer EXISTS over IN (better for large subquery results)
@@ -94,7 +94,7 @@ WHERE EXISTS (
     FROM cast_info ci
     WHERE ci.person_id = n.id
 );
--- (Explanation: EXISTS stops checking as soon as it finds a match, while IN must fetch and compare all values, making EXISTS often faster)
+-- (Explanation: EXISTS stops checking as soon as it finds a match, while IN must fetch and compare all values, making EXISTS often faster.)
 
 
 -- 5. Avoid functions applied to indexed columns in WHERE 
@@ -109,10 +109,10 @@ SELECT title
 FROM title
 WHERE title ILIKE 'inception';
 -- (Explanation: Functions like LOWER() prevent the database from using indexes.
--- Using ILIKE (case-insensitive search) or pre-normalized data keeps indexes usable, greatly improving performance)
+-- Using ILIKE (case-insensitive search) or pre-normalized data keeps indexes usable, greatly improving performance.)
 
 
--- 6. Join Tables in the Right Order (small table first when possible - very important!)
+-- 6. Join Tables in the Right Order (small table first when possible) - very important!
 
 -- (Bad query: big table first, slower)
 SELECT t.title, n.name
@@ -127,10 +127,10 @@ FROM name n
 JOIN cast_info ci ON n.id = ci.person_id
 JOIN title t ON t.id = ci.movie_id
 WHERE t.production_year > 2010;
--- (Explanation: Joining smaller tables first can help reduce intermediate result sizes, improving join performance especially on big datasets)
+-- (Explanation: Joining smaller tables first can help reduce intermediate result sizes, improving join performance especially on big datasets.)
 
 
--- 7. Use WHERE Conditions Before GROUP BY (filter before aggregating - very important!)
+-- 7. Use WHERE Conditions Before GROUP BY (filter before aggregating) - very important!
 
 -- (Bad query: groups all rows, then filters)
 SELECT production_year, COUNT(*)
@@ -143,7 +143,7 @@ SELECT production_year, COUNT(*)
 FROM title
 WHERE production_year > 2000
 GROUP BY production_year;
--- (Explanation: Filtering rows before GROUP BY reduces the data to be grouped and aggregated, making the query much faster)
+-- (Explanation: Filtering rows before GROUP BY reduces the data to be grouped and aggregated, making the query much faster.)
 
 
 -- 8. Handle NULLs Properly (use IS NULL or IS NOT NULL)
@@ -157,7 +157,7 @@ WHERE production_year = NULL;
 SELECT title
 FROM title
 WHERE production_year IS NULL;
--- (Explanation: NULL in SQL needs IS NULL or IS NOT NULL — using = NULL does not work and causes silent errors)
+-- (Explanation: NULL in SQL needs IS NULL or IS NOT NULL — using = NULL does not work and causes silent errors.)
 
 
 -- 9. Avoid Unnecessary DISTINCT if GROUP BY already guarantees uniqueness
@@ -174,10 +174,10 @@ FROM (
 SELECT production_year
 FROM title
 GROUP BY production_year;
--- (Explanation: GROUP BY already returns unique values per group. Adding DISTINCT is redundant and adds extra unnecessary work)
+-- (Explanation: GROUP BY already returns unique values per group. Adding DISTINCT is redundant and adds extra unnecessary work.)
 
 
--- 10. Avoid COUNT(*) inside correlated subqueries when simple EXISTS works - very important
+-- 10. Avoid COUNT(*) inside correlated subqueries when simple EXISTS works - very important!
 
 -- (Bad query: COUNT(*) correlated subquery, slower)
 SELECT title
@@ -197,10 +197,10 @@ WHERE EXISTS (
     WHERE mk.movie_id = t.id
 );
 -- (Explanation: EXISTS stops at the first match; COUNT(*) scans all matching rows unnecessarily.
---  EXISTS is much more efficient when we only care about existence)
+--  EXISTS is much more efficient when we only care about existence.)
 
 
--- 11. Move Conditions from WHERE to JOIN to optimize join performance - super important
+-- 11. Move Conditions from WHERE to JOIN to optimize join performance - super important!!
 
 -- (Bad query: applies filter after a large join, causing unnecessary cross-products and extra processing)
 SELECT t.title, n.name
@@ -218,7 +218,7 @@ FROM (
 ) t
 JOIN cast_info ci ON t.id = ci.movie_id
 JOIN name n ON n.id = ci.person_id;
--- (Explanation: Filtering rows before joining reduces the number of rows participating in the join, making the join operation much faster)
+-- (Explanation: Filtering rows before joining reduces the number of rows participating in the join, making the join operation much faster.)
 
 
 -- 12. Use UNION ALL instead of UNION when duplicates are acceptable
@@ -233,7 +233,7 @@ SELECT title FROM title WHERE production_year = 2000
 UNION ALL
 SELECT title FROM title WHERE production_year = 2001;
 -- (Explanation: UNION sorts and removes duplicates (extra work).
--- UNION ALL simply appends results without checking, much faster if duplicates are not an issue)
+-- UNION ALL simply appends results without checking, much faster if duplicates are not an issue.)
 
 
 -- 13. Avoid functions on columns during JOINs
@@ -248,11 +248,11 @@ SELECT t.title, mc.movie_id
 FROM movie_companies mc
 JOIN title t ON t.id = mc.movie_id;
 -- (Explanation: Applying functions to join columns disables index usage and forces full scans.
--- Always join on raw columns if possible to allow faster index lookups)
+-- Always join on raw columns if possible to allow faster index lookups.)
 
 
 
--- 14. Defer ORDER BY until after filtering and limiting - very important
+-- 14. Defer ORDER BY until after filtering and limiting - very important!
 
 -- (Bad query: ordering full dataset before limiting)
 SELECT title
@@ -269,7 +269,7 @@ FROM (
 ) AS limited
 ORDER BY production_year;
 -- (Explanation: Sorting large datasets is expensive.
--- If possible, LIMIT early and then ORDER the smaller result set to save memory and CPU time)
+-- If possible, LIMIT early and then ORDER the smaller result set to save memory and CPU time.)
 
 
 -- 15. Export only needed columns when using COPY
@@ -281,22 +281,22 @@ TO '/path/to/movies_full.csv' WITH CSV HEADER;
 -- (Optimized query: export only required columns)
 COPY (SELECT title, production_year FROM title)
 TO '/path/to/movies_short.csv' WITH CSV HEADER;
--- (Explanation: Exporting fewer columns reduces I/O, makes files smaller and faster to create, and speeds up future data loading)
+-- (Explanation: Exporting fewer columns reduces I/O, makes files smaller and faster to create, and speeds up future data loading.)
 
 
 -- 16. Always ANALYZE after major data changes (INSERT, UPDATE and DELETE)
 
 -- (Bad practice: no statistics update after big INSERT/DELETE)
--- (Nothing to show — the optimizer works with stale data)
+-- (Nothing to show — the optimizer works with stale data.)
 
 -- (Good practice: update statistics)
 ANALYZE title;
--- (Explanation: ANALYZE refreshes table statistics (number of rows, distribution of data) so that the optimizer can create better, faster query plans)
+-- (Explanation: ANALYZE refreshes table statistics (number of rows, distribution of data) so that the optimizer can create better, faster query plans.)
 
 
 -- 17. Prefer covering indexes (select only indexed columns when possible)
 -- (Indexes are special structures that speed up data retrieval.
---  Primary keys automatically create unique indexes, allowing faster WHERE lookups and JOINs)
+--  Primary keys automatically create unique indexes, allowing faster WHERE lookups and JOINs.)
 
 -- (Bad query: selects many columns, cannot use index alone)
 SELECT title, production_year, id
@@ -307,12 +307,12 @@ WHERE production_year > 2010;
 SELECT id
 FROM title
 WHERE production_year > 2010;
--- (Explanation: If a query only uses columns from an index, the database can satisfy it directly from the index without accessing the full table ("index-only scan"), improving performance)
+-- (Explanation: If a query only uses columns from an index, the database can satisfy it directly from the index without accessing the full table ("index-only scan"), improving performance.)
 
 
--- 18. Avoid unnecessary subqueries when a simple JOIN can solve the problem - very important
+-- 18. Avoid unnecessary subqueries when a simple JOIN can solve the problem - very important!
 -- (Correlated subqueries execute once per row, which is slow on large tables.
---  JOIN retrieves all needed data at once in a set-based way, making it much faster and scalable)
+--  JOIN retrieves all needed data at once in a set-based way, making it much faster and scalable.)
 
 -- (Bad query: correlated subquery for name lookup)
 SELECT title, (
@@ -330,7 +330,7 @@ FROM title t
 JOIN movie_companies mc ON t.id = mc.movie_id
 JOIN company_name c ON c.id = mc.company_id;
 -- (Explanation: JOINs are much faster than repeatedly running subqueries per row.
---  Always prefer JOIN when retrieving data from related tables)
+--  Always prefer JOIN when retrieving data from related tables.)
 
 
 -- 19. Use EXPLAIN and EXPLAIN ANALYZE to check query cost
@@ -347,10 +347,10 @@ SELECT title, production_year
 FROM title
 WHERE production_year > 2015;
 -- (Explanation: Always use EXPLAIN and EXPLAIN ANALYZE to understand how your query behaves: estimated cost, row counts, index usage, sequential scans, etc.
---  It is the best tool for spotting slow parts of queries)
+--  It is the best tool for spotting slow parts of queries.)
 
 
--- 20. Example: Heavy Query vs Optimized Query - super important
+-- 20. Example: Heavy Query vs Optimized Query - super important!!
 
 -- (Bad query: joins and filters after joining)
 SELECT t.title, n.name
@@ -375,7 +375,7 @@ SELECT ft.title, fn.name
 FROM filtered_titles ft
 JOIN cast_info ci ON ft.id = ci.movie_id
 JOIN filtered_names fn ON fn.id = ci.person_id;
--- (Explanation: By reducing the size of both tables before joining (using CTEs to pre-filter), we drastically cut down the number of rows involved in joins, speeding up the query significantly)
+-- (Explanation: By reducing the size of both tables before joining (using CTEs to pre-filter), we drastically cut down the number of rows involved in joins, speeding up the query significantly.)
 
 
 -- =========================================================================
