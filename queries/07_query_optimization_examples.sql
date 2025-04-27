@@ -570,8 +570,7 @@ WHERE EXISTS (
     WHERE mk.movie_id = t.id
       AND k.keyword ILIKE '%drama%'
 );
--- (Notice: Instead of joining all rows (many-to-many explosion), we use a subquery to fetch only one genre per movie,
---  avoiding huge intermediate JOIN results — lighter and faster on large datasets.)
+-- (Notice: Instead of joining all rows (many-to-many explosion), we use a subquery to fetch only one genre per movie, avoiding huge intermediate JOIN results — lighter and faster on large datasets.)
 
 -- ============================================================================
 -- 20. Find the number of movies produced per year after 2010
@@ -622,8 +621,7 @@ ORDER BY movie_count DESC;
 -- - WHERE using functions on columns (e.g., LOWER(title), EXTRACT(year FROM date))
 --   → Think: "Am I blocking index usage? Should I normalize or precompute the value instead?"
 --   → Normalize: store already lowercased or formatted versions of values in a separate indexed column.
---   → Precompute: create a new column like 'title_lower' or 'release_year' and fill it during INSERT/UPDATE,
---     so queries can filter directly without needing to apply functions on the fly.
+--   → Precompute: create a new column like 'title_lower' or 'release_year' and fill it during INSERT/UPDATE, so queries can filter directly without needing to apply functions on the fly.
 
 -- Now check the SELECT clause:
 
@@ -648,8 +646,7 @@ ORDER BY movie_count DESC;
 
 -- - ORDER BY combined with LIMIT
 --   → Think: "Can I LIMIT early to avoid sorting large datasets?"
---   → If the query involves JOINs and then LIMIT, consider wrapping the most selective table in a subquery with LIMIT first,
---     so the join happens against a much smaller result set.
+--   → If the query involves JOINs and then LIMIT, consider wrapping the most selective table in a subquery with LIMIT first, so the join happens against a much smaller result set.
 
 -- - Complex questions (asking for two different things)
 --   → Split into multiple CTEs or subqueries (e.g., Disney titles + producer count).
