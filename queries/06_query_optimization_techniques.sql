@@ -5,14 +5,14 @@
 
 -- How SQL Queries Are Executed Internally:
 -- When the database engine runs a query, it typically processes the steps in this logical order:
--- 1️⃣ FROM and JOIN: Load and combine rows from tables (building the base dataset)
--- 2️⃣ WHERE: Filter rows early based on conditions
--- 3️⃣ GROUP BY: Group the remaining rows if aggregation is needed
--- 4️⃣ HAVING: Filter groups after aggregation (e.g., COUNT > 5)
--- 5️⃣ SELECT: Choose which columns to output
--- 6️⃣ DISTINCT: Remove duplicate rows if requested
--- 7️⃣ ORDER BY: Sort the final result
--- 8️⃣ LIMIT/OFFSET: Restrict the number of rows returned
+-- 1️. FROM and JOIN: Load and combine rows from tables (building the base dataset)
+-- 2️. WHERE: Filter rows early based on conditions
+-- 3️. GROUP BY: Group the remaining rows if aggregation is needed
+-- 4️. HAVING: Filter groups after aggregation (e.g., COUNT > 5)
+-- 5️. SELECT: Choose which columns to output
+-- 6️. DISTINCT: Remove duplicate rows if requested
+-- 7️. ORDER BY: Sort the final result
+-- 8️. LIMIT/OFFSET: Restrict the number of rows returned
 
 -- Therefore, to optimize a query, we aim to:
 -- - Reduce data as early as possible (before JOINs and GROUP BY)
