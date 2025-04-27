@@ -11,44 +11,41 @@ It covers everything from basic SELECT statements to advanced PostgreSQL feature
 
 ### queries/
 - **queries/00_database_manipulation.sql**
-  - Demonstrates DDL and DML operations: creating schemas, creating tables, inserting, updating, deleting records, and exporting results with COPY.
-  - Includes examples of EXPLAIN and query analysis.
+  - Covers schema creation, table creation, basic INSERT, UPDATE, DELETE operations, exporting results, and EXPLAIN for analyzing queries.
 
 - **queries/01_basic_selects.sql**
-  - Includes beginner-friendly SQL queries to retrieve rows, apply filters, and use basic WHERE clauses.
-  - Great for users new to SQL syntax.
+  - Beginner-friendly SQL queries to retrieve rows, apply simple WHERE filters, basic projections, and view specific data.
 
 - **queries/02_joins.sql**
-  - Explores INNER JOINs, LEFT JOINs, self-joins, and multi-table queries to fetch related data like titles, companies, actors, and keywords.
+  - Practical examples of INNER JOIN, LEFT JOIN, multi-table joins, with comments explaining relationships between entities.
 
 - **queries/03_aggregations.sql**
-  - Demonstrates GROUP BY, aggregate functions like COUNT(), AVG(), and conditional filtering with HAVING.
-  - Covers thinking patterns for building aggregation queries efficiently.
+  - Demonstrates how to use GROUP BY, COUNT, AVG, HAVING, and filtering aggregates properly.
 
 - **queries/04_subqueries.sql**
-  - Includes examples of scalar, correlated, and IN/EXISTS subqueries.
-  - Progresses from basic single-layer subqueries to multi-layer optimization.
+  - Includes examples of scalar, correlated, and IN/EXISTS subqueries, progressing from basic to intermediate level.
 
 - **queries/05_ctes.sql**
-  - Introduces Common Table Expressions (CTEs) using the WITH clause for cleaner, modular queries.
-  - Covers multiple CTEs, chaining, and usage in JOINs and aggregations.
+  - Introduces Common Table Expressions (CTEs) using the WITH clause for modular, cleaner queries.
 
 - **queries/06_query_optimization_techniques.sql**
-  - Presents key query optimization principles with 20+ focused examples.
-  - Techniques include early filtering, avoiding unnecessary DISTINCTs, EXISTS vs IN, function-avoidance on indexed columns, and more.
-  - Bad vs Good query comparison style with clear explanations.
+  - A complete techniques manual: tips like filter early, use EXISTS smartly, defer ORDER BY, push conditions into JOINs.
 
 - **queries/07_query_optimization_examples.sql**
-  - A set of 20 real-world examples showing side-by-side normal vs optimized queries.
-  - Covers query restructuring, early limiting, CTE optimization, EXISTS usage, proper NULL handling, minimizing joins, and performance tricks.
+  - 20 real-world query examples: each shows the normal version first, then the optimized version, with explanation why optimization matters.
     
 - **queries/08_window_functions.sql**
-  - Introduces powerful window functions like ROW_NUMBER(), RANK(), LAG(), LEAD(), and PERCENT_RANK().
-  - Covers how to perform advanced row-based calculations across partitions without collapsing result sets.
+  - Explains window functions like ROW_NUMBER(), RANK(), LEAD(), LAG(), PERCENT_RANK(), showing how to do advanced ranking, cumulative sums, 
+    and comparisons across rows.
 
 - **queries/09_set_operations.sql**
-  - Demonstrates SQL set operations: UNION, UNION ALL, INTERSECT, and EXCEPT with practical examples.
-  - Explains differences in performance, duplicate handling, and result merging strategies.
+  - Shows UNION, UNION ALL, INTERSECT, and EXCEPT set operations: when and how to merge, compare, or differentiate two result sets.
+
+- **queries/10_indexes.sql**
+  - Introduction to SQL indexing. Shows how to create indexes to speed up WHERE conditions and JOINs, and gives examples comparing execution      times before and after indexing.
+
+- **queries/11_transactions_and_consistency.sql**
+  - Covers transactions (BEGIN, COMMIT, ROLLBACK), savepoints, lost update scenarios, consistency best practices, and isolation basics in SQL.
 
 ---
 
