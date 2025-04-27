@@ -84,7 +84,8 @@ LIMIT 10;
 
 -- 10. Count how many movies each company has produced
 -- (Notice that we don’t need to join the 'title' table here, since we're just counting movie IDs from 'movie_companies'.
---  This also happened in some above cases - queries 7, 8, 10  — if we don’t need movie details like the title or year, we can skip joining the 'title' table, which is important for the speed of execution especially on large datasets.)
+--  This also happened in some above cases - queries 7, 8, 10  — if we don’t need movie details like the title or year, we can skip joining the 'title' table, 
+--  which is important for the speed of execution especially on large datasets.)
 SELECT cn.name, COUNT(*) AS movie_count
 FROM company_name cn
 JOIN movie_companies mc ON mc.company_id = cn.id
