@@ -6,7 +6,7 @@
 -- (CTEs allow us to create temporary named result sets that can be referenced within the main query.
 --  They improve readability and are especially useful for breaking down complex queries into simpler steps.
 --  A CTE acts like a temporary table created by the SELECT inside it — and from that "table," we can select, join, group, or filter just like a real table and as needed in the main query.
---  Additionally, CTEs can sometimes help reduce execution time by allowing the database engine to optimize and materialize intermediate results more efficiently)
+--  Additionally, CTEs can sometimes help reduce execution time by allowing the database engine to optimize and materialize intermediate results more efficiently.)
 -- Example:
 -- WITH movie_counts AS (
 --    SELECT production_year, COUNT(*) AS total_movies
@@ -34,7 +34,7 @@ WHERE production_year IS NOT NULL
 GROUP BY production_year
 ORDER BY production_year;
 -- (Notice: Here we simply take a query, place it inside a CTE, a temporary table, and then SELECT * from it.
---  This shows the simplest functionality of a CTE: wrapping a query to improve organization and readability)
+--  This shows the simplest functionality of a CTE: wrapping a query to improve organization and readability.)
 
 -- 2. Find the average number of movies produced per year using CTE (CTE vs comparing subquery)
 WITH yearly_movie_counts AS (
@@ -55,7 +55,8 @@ FROM (
     GROUP BY production_year
 ) AS yearly_counts;
 -- (Notice: We often use CTEs instead of subqueries when we want to improve readability and sometimes performance.
---  In many cases, especially for larger datasets, the CTE version can execute faster, justs  like here, because the intermediate results can be materialized once, while a subquery might be recalculated multiple times - see next example)
+--  In many cases, especially for larger datasets, the CTE version can execute faster, justs  like here, because the intermediate results can be materialized once, 
+--  while a subquery might be recalculated multiple times - see next example.)
 
 -- 3. Find movies released after the average production year 
 WITH avg_year AS (
@@ -74,7 +75,7 @@ WHERE production_year > (
     FROM title
 );
 -- (Notice: Subqueries are "hidden" — so optimizers might (not always) re-execute them for every row.
---  CTEs are "named tables" — so optimizers usually compute them once and reuse the result, which can improve performance, especially on large datasets)
+--  CTEs are "named tables" — so optimizers usually compute them once and reuse the result, which can improve performance, especially on large datasets.)
 
 -- 4. Find the number of movies produced each year after 2000
 WITH yearly_movies_after_2000 AS (
@@ -93,7 +94,7 @@ FROM title
 WHERE production_year > 2000
 GROUP BY production_year
 ORDER BY production_year;
--- (Notice: A CTE helps isolate the filtering (after 2000) and aggregation (COUNT per year), keeping the main query clean, readable, and easy to reuse if needed)
+-- (Notice: A CTE helps isolate the filtering (after 2000) and aggregation (COUNT per year), keeping the main query clean, readable, and easy to reuse if needed.)
 
 -- 5. Find actors who acted in more than 10 movies (CTE vs direct query)
 WITH actor_movie_counts AS (
@@ -299,7 +300,7 @@ FROM drama_movies d
 JOIN movie_companies mc ON mc.movie_id = d.id
 JOIN company_name cn ON cn.id = mc.company_id;
 -- (Notice: This is an excellent example where we create a CTE (drama_movies), then JOIN it with other tables (movie_companies and company_name) just like a normal table.
---  It shows how CTEs integrate smoothly into complex queries, making the logic cleaner and easier to follow)
+--  It shows how CTEs integrate smoothly into complex queries, making the logic cleaner and easier to follow.)
 
 -- (Alternative without CTE. Notice that it needs more time to be executed)
 SELECT t.title, cn.name AS company
@@ -396,7 +397,7 @@ GROUP BY cn.name
 HAVING COUNT(DISTINCT CASE WHEN k.keyword ILIKE '%comedy%' THEN 1 END) > 0
    AND COUNT(DISTINCT CASE WHEN k.keyword ILIKE '%drama%' THEN 1 END) > 0;
 -- (Another great example: notice how the CTE version is much clearer and more readable compared to the direct query.
---  Also, CTEs can lead to better execution time, because we split the logic into two simple, optimized steps: finding comedy companies and drama companies separately)
+--  Also, CTEs can lead to better execution time, because we split the logic into two simple, optimized steps: finding comedy companies and drama companies separately.)
 
 -- 17. Find the number of 'horror' movies per production year
 WITH horror_movies AS (
@@ -470,7 +471,7 @@ WITH video_games AS (
 SELECT cn.name, COUNT(*) AS game_count
 FROM company_name cn
 JOIN movie_companies mc ON cn.id = mc.company_id
-WHERE mc.movie_id IN (SELECT id FROM video_games) -- (Notice: Here we filter using a CTE by matching mc.movie_id with the id values from the video_games CTE, ensuring consistency with t.id in the original selection)
+WHERE mc.movie_id IN (SELECT id FROM video_games) -- (Notice: Here we filter using a CTE by matching mc.movie_id with the id values from the video_games CTE, ensuring consistency with t.id in the original selection.)
 GROUP BY cn.name
 ORDER BY game_count DESC
 LIMIT 5;
