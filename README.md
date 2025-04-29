@@ -56,4 +56,7 @@ If you encounter issues or have suggestions, feel free to open an issue or start
 This project assumes you have access to a PostgreSQL database loaded with a compatible IMDb-like dataset.  
 If you need help importing the schema or if you are interested in obtaining the database itself (since it cannot be uploaded here), feel free to contact me directly and I can share it with you privately (Google Drive, Dropbox, etc.).
 
+**Final Note:**  
+This lab provides just an introductory glimpse into SQL. In real-world applications, especially with today's cloud-based databases, professionals often manage much larger and more complex datasets where queries are longer, optimization is significantly more advanced, and performance tuning becomes critical. Nevertheless, this repository offers an excellent starting point for beginners aiming to build strong SQL fundamentals.
+
 ---
