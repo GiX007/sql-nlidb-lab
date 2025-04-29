@@ -113,7 +113,9 @@ WHERE EXISTS (
     FROM cast_info ci
     WHERE ci.person_id = n.id
 );
--- (Explanation: EXISTS stops checking as soon as it finds a match, while IN must fetch and compare all values, making EXISTS often faster.)
+-- (Explanation: EXISTS stops checking as soon as it finds a match, while IN must fetch and compare all values, making EXISTS often faster.
+--  In the first case, we scan every row of the name table and compare it against every row of cast_info.
+--  In the second case, for each row in name table, we only scan cast_info until the first match is found — then move on to the next row in name table.)
 
 
 -- 5. Avoid functions applied to indexed columns in WHERE 
