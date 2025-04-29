@@ -50,7 +50,6 @@
 -- SELECT title, production_year
 -- FROM title
 -- WHERE production_year > 2010;
-
 -- (Explanation: By selecting only two columns instead of all (*), and adding a WHERE filter to restrict rows, the query becomes faster, lighter on memory, and allows the database to optimize better.)
 
 
