@@ -130,7 +130,7 @@ SELECT title
 FROM title
 WHERE title ILIKE 'inception';
 -- (Explanation: Functions like LOWER() prevent the database from using indexes.
--- Using ILIKE (case-insensitive search) or pre-normalized data keeps indexes usable, greatly improving performance.)
+--  Using ILIKE (case-insensitive search) or pre-normalized data keeps indexes usable, greatly improving performance.)
 
 
 -- 6. Join Tables in the Right Order (small table first when possible) - very important!
@@ -148,7 +148,11 @@ FROM name n
 JOIN cast_info ci ON n.id = ci.person_id
 JOIN title t ON t.id = ci.movie_id
 WHERE t.production_year > 2010;
--- (Explanation: Joining smaller tables first can help reduce intermediate result sizes, improving join performance especially on big datasets.)
+-- (Explanation: Joining smaller tables first can help reduce intermediate result sizes, improving join performance especially on big datasets.
+--  In the first case, we start with 'title' (~2.5M rows) joined with 'cast_info' (~36M rows). Since popular movies can have many cast members, this join has high fan-out (1 movie joins to many rows in cast_info),
+--  potentially producing a very large intermediate result — millions or even billions of rows. Then we join that bloated result with 'name' (~4.1M), adding more overhead.
+--  In the second case, we start with 'name' (~4.1M) joined with 'cast_info' (~36M). Most people appear in only a few movies, so this join has low fan-out (1 person joins to a small number of rows),
+--  resulting in a much smaller intermediate result. That smaller result is then joined with 'title', significantly reducing memory usage and improving query performance.)
 
 
 -- 7. Use WHERE Conditions Before GROUP BY (filter before aggregating) - very important!
@@ -217,11 +221,10 @@ WHERE EXISTS (
     FROM movie_keyword mk
     WHERE mk.movie_id = t.id
 );
--- (Explanation: EXISTS stops at the first match; COUNT(*) scans all matching rows unnecessarily.
---  EXISTS is much more efficient when we only care about existence.)
+-- (Explanation: EXISTS stops at the first match; COUNT(*) scans all matching rows unnecessarily. EXISTS is much more efficient when we only care about existence.)
 
 
--- 11. Move Conditions from WHERE to JOIN to optimize join performance - super important!!
+-- 11. Move Conditions from WHERE to JOIN to optimize join performance - super important !!
 
 -- (Bad query: applies filter after a large join, causing unnecessary cross-products and extra processing)
 SELECT t.title, n.name
@@ -253,8 +256,7 @@ SELECT title FROM title WHERE production_year = 2001;
 SELECT title FROM title WHERE production_year = 2000
 UNION ALL
 SELECT title FROM title WHERE production_year = 2001;
--- (Explanation: UNION sorts and removes duplicates (extra work).
--- UNION ALL simply appends results without checking, much faster if duplicates are not an issue.)
+-- (Explanation: UNION sorts and removes duplicates (extra work). UNION ALL simply appends results without checking, much faster if duplicates are not an issue.)
 
 
 -- 13. Avoid functions on columns during JOINs
@@ -269,11 +271,11 @@ SELECT t.title, mc.movie_id
 FROM movie_companies mc
 JOIN title t ON t.id = mc.movie_id;
 -- (Explanation: Applying functions to join columns disables index usage and forces full scans.
--- Always join on raw columns if possible to allow faster index lookups.)
+--  Always join on raw columns if possible to allow faster index lookups.)
 
 
 
--- 14. Defer ORDER BY until after filtering and limiting - very important!
+-- 14. Defer ORDER BY until after filtering and limiting - very important !!
 
 -- (Bad query: ordering full dataset before limiting)
 SELECT title
@@ -289,8 +291,7 @@ FROM (
     LIMIT 100
 ) AS limited
 ORDER BY production_year;
--- (Explanation: Sorting large datasets is expensive.
--- If possible, LIMIT early and then ORDER the smaller result set to save memory and CPU time.)
+-- (Explanation: Sorting large datasets is expensive. If possible, LIMIT early and then ORDER the smaller result set to save memory and CPU time.)
 
 
 -- 15. Export only needed columns when using COPY
@@ -316,8 +317,7 @@ ANALYZE title;
 
 
 -- 17. Prefer covering indexes (select only indexed columns when possible)
--- (Indexes are special structures that speed up data retrieval.
---  Primary keys automatically create unique indexes, allowing faster WHERE lookups and JOINs.)
+-- (Indexes are special structures that speed up data retrieval. Primary keys automatically create unique indexes, allowing faster WHERE lookups and JOINs.)
 
 -- (Bad query: selects many columns, cannot use index alone)
 SELECT title, production_year, id
@@ -332,8 +332,7 @@ WHERE production_year > 2010;
 
 
 -- 18. Avoid unnecessary subqueries when a simple JOIN can solve the problem - very important!
--- (Correlated subqueries execute once per row, which is slow on large tables.
---  JOIN retrieves all needed data at once in a set-based way, making it much faster and scalable.)
+-- (Correlated subqueries execute once per row, which is slow on large tables. JOIN retrieves all needed data at once in a set-based way, making it much faster and scalable.)
 
 -- (Bad query: correlated subquery for name lookup)
 SELECT title, (
@@ -350,8 +349,7 @@ SELECT t.title, c.name AS company
 FROM title t
 JOIN movie_companies mc ON t.id = mc.movie_id
 JOIN company_name c ON c.id = mc.company_id;
--- (Explanation: JOINs are much faster than repeatedly running subqueries per row.
---  Always prefer JOIN when retrieving data from related tables.)
+-- (Explanation: JOINs are much faster than repeatedly running subqueries per row. Always prefer JOIN when retrieving data from related tables.)
 
 
 -- 19. Use EXPLAIN and EXPLAIN ANALYZE to check query cost
@@ -392,34 +390,33 @@ filtered_names AS (
     FROM name
     WHERE name ILIKE '%Tom%'
 )
-SELECT ft.title, fn.name
+SELECT ft.title, fn.name    -- (Remember here that we still need to join as in bad query, but by using the already filtered tables.)
 FROM filtered_titles ft
 JOIN cast_info ci ON ft.id = ci.movie_id
 JOIN filtered_names fn ON fn.id = ci.person_id;
--- (Explanation: By reducing the size of both tables before joining (using CTEs to pre-filter), we drastically cut down the number of rows involved in joins, speeding up the query significantly.)
+-- (Explanation: By reducing the size of both tables before joining (using CTEs to prefilter), we drastically cut down the number of rows involved in joins, speeding up the query significantly.)
 
 -- =========================================================================
 -- Closing Notes:
 -- Good query writing saves hours of debugging and terabytes of resources!
 
--- ⭐ Super Important Techniques to Always Remember:
--- - Apply WHERE filters as early as possible to reduce scanned rows.
--- - Prefer EXISTS instead of IN for existence checks.
--- - Move conditions from WHERE into JOINs when possible.
--- - Avoid COUNT(*) inside correlated subqueries — prefer EXISTS.
--- - Defer ORDER BY until after LIMIT when possible.
-
--- 🔥 Very Important Techniques:
+-- 🔥 Important Techniques:
 -- - Avoid functions on indexed columns in WHERE and JOIN.
 -- - Use UNION ALL instead of UNION when duplicate removal isn't needed.
 -- - Use EXPLAIN and EXPLAIN ANALYZE to understand query performance.
 -- - Use covering indexes (select only indexed columns when possible).
 -- - ANALYZE tables after large data changes to refresh planner statistics.
-
--- 📚 Other Good Practices:
 -- - Avoid unnecessary DISTINCT if GROUP BY is already used.
 -- - Handle NULLs properly with IS NULL / IS NOT NULL.
 -- - Export only the needed columns when writing results to files (COPY).
 -- - Replace unnecessary subqueries with simple JOINs.
 -- - Always think set-based (operate on groups of rows, not one-by-one).
+
+-- ⭐ Super Important Techniques to Always Remember:
+-- - Apply WHERE and LIMIT filters as early as possible to reduce scanned rows.
+-- - Prefer EXISTS instead of IN for existence checks (or think about it when you have a subquery).
+-- - Move conditions from WHERE (when they are usually at the end), into JOINs when possible.
+-- - Avoid COUNT(*) inside correlated subqueries — prefer EXISTS.
+-- - Defer ORDER BY until after LIMIT when possible.
+
 -- =========================================================================
