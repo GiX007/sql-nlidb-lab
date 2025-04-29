@@ -46,8 +46,7 @@ JOIN movie_companies mc ON cn.id = mc.company_id
 GROUP BY cn.name
 HAVING COUNT(*) >= 5
 ORDER BY movie_count DESC;
--- (Notice: By adding ORDER BY movie_count DESC, we prioritize the companies producing the most movies,
---  making the results more useful and meaningful immediately, especially when combined with a LIMIT later if needed.
+-- (Notice: By adding ORDER BY movie_count DESC, we prioritize the companies producing the most movies, making the results more useful and meaningful immediately, especially when combined with a LIMIT later if needed.
 --  Although it doesn't speed up the query, it optimizes the relevance and usability of the output.)
 
 -- ============================================================================
@@ -103,8 +102,7 @@ SELECT name, movie_count
 FROM actor_counts
 ORDER BY movie_count DESC
 LIMIT 5;
--- (Notice: By restricting actors to starring roles (nr_order between 1 and 4) early during filtering,
---  and grouping inside a CTE first, we keep the data smaller and focus only on top-level important appearances.)
+-- (Notice: By restricting actors to starring roles (nr_order between 1 and 4) early during filtering, and grouping inside a CTE first, we keep the data smaller and focus only on top-level important appearances.)
 
 -- ============================================================================
 -- 6. Find the movies and their actors released by Disney (Better join and filtering)
@@ -231,7 +229,7 @@ LIMIT 1;
 -- ============================================================================
 
 -- (Normal version: heavy correlated subquery)
-SELECT name
+SELECT n.name
 FROM name n
 WHERE (
     SELECT COUNT(*)
@@ -243,7 +241,7 @@ WHERE (
     FROM name n2
     JOIN cast_info ci2 ON ci2.person_id = n2.id
     JOIN role_type rt2 ON rt2.id = ci2.role_id
-    WHERE n2.name = 'Tom Hanks' AND rt2.role ILIKE '%Actor%'
+    WHERE n2.name ILIKE '%Hanks, Tom%' AND rt2.role ILIKE '%Actor%'
 );
 
 -- (Optimized: precompute actor movie counts)
@@ -258,7 +256,7 @@ tom_hanks_count AS (
     SELECT movie_count
     FROM actor_counts ac
     JOIN name n ON n.id = ac.person_id
-    WHERE n.name = 'Tom Hanks'
+    WHERE n.name ILIKE '%Hanks, Tom%'
 )
 SELECT n.name
 FROM actor_counts ac
@@ -348,8 +346,7 @@ FROM top_actors ta
 JOIN cast_info ci ON ci.person_id = ta.id
 JOIN title t ON t.id = ci.movie_id
 WHERE t.production_year > 2010;
--- (Notice: By limiting actors first inside a subquery (CTE), 
---  we avoid joining millions of people unnecessarily, and we focus the join only on the top 100 actors from the beginning - great example!)
+-- (Notice: By limiting actors first inside a subquery (CTE), we avoid joining millions of people unnecessarily, and we focus the join only on the top 100 actors from the beginning - great example!)
 
 -- ============================================================================
 -- 13. Actors with more than 3 different characters played
@@ -430,8 +427,7 @@ AND EXISTS (
     JOIN title t ON ci.movie_id = t.id
     WHERE ci.person_id = n.id AND t.kind_id IN (SELECT id FROM kind_type WHERE kind ILIKE '%video game%')
 );
--- (Notice: The optimized version with EXISTS stops searching as soon as it finds a match for each condition,
---  avoiding full scans and heavy grouping, making it much faster especially on large datasets.)
+-- (Notice: The optimized version with EXISTS stops searching as soon as it finds a match for each condition, avoiding full scans and heavy grouping, making it much faster especially on large datasets.)
 
 -- ============================================================================
 -- 16. Find actors who acted only in 'comedy' movies
