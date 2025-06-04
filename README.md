@@ -1,12 +1,13 @@
-# IMDb SQL and NLIDB Lab
+# IMDb SQL Lab & NLIDB Exploration with Spider Dataset
 
-A hands-on lab combining SQL query practice and Natural Language Interfaces to Databases (NLIDBs) using an IMDb-style and Spider PostgreSQL schemas.
+A hands-on lab combining SQL query practice on an IMDb-style PostgreSQL schema and NLIDB experimentation using the Spider dataset.
 
 ## Overview
 
-This repository contains a series of structured SQL query files and schema references designed for practicing and mastering SQL using a relational IMDb-style movie database. It covers everything from basic SELECT statements to advanced PostgreSQL features such as CTEs, subqueries, window functions, and query optimization.
+This repository contains structured SQL query files and schema references for practicing SQL using a relational IMDb-style movie database.  
+It spans beginner to advanced PostgreSQL concepts such as CTEs, subqueries, window functions, indexing, and optimization.
 
-It also provides a notebook with NLIDB practice on the well-known Spider dataset, exploring tasks like Text-to-SQL, SQL-to-Text, and Data-to-Text using LLMs.
+Additionally, the lab includes a notebook for Natural Language Interface to Databases (NLIDB) tasks using the Spider dataset — a benchmark schema widely used for evaluating Text-to-SQL systems. The notebook showcases how LLMs (e.g., GPT) can translate between natural language, SQL, and tabular data.
 
 ## Contents:
 
@@ -41,11 +42,10 @@ It also provides a notebook with NLIDB practice on the well-known Spider dataset
       - 20 real-world query examples: each shows the normal version first, then the optimized version, with explanation why optimization matters.
         
     - **08_window_functions.sql**
-      - Explains window functions like ROW_NUMBER(), RANK(), LEAD(), LAG(), PERCENT_RANK(), showing how to do advanced ranking, cumulative sums, 
-        and comparisons across rows.
+      - Advanced ranking and row comparisons using ROW_NUMBER(), RANK(), LEAD(), LAG(), PERCENT_RANK().
     
     - **09_set_operations.sql**
-      - Shows UNION, UNION ALL, INTERSECT, and EXCEPT set operations: when and how to merge, compare, or differentiate two result sets.
+      - Set operations including UNION, UNION ALL, INTERSECT, and EXCEPT set operations for merging, comparing, and differentiating result sets.
     
     - **10_indexes.sql**
       - Introduction to SQL indexing. Shows how to create indexes to speed up WHERE conditions and JOINs, and gives examples comparing execution      times before and after indexing.
@@ -54,7 +54,7 @@ It also provides a notebook with NLIDB practice on the well-known Spider dataset
       - Covers transactions (BEGIN, COMMIT, ROLLBACK), savepoints, lost update scenarios, consistency best practices, and isolation basics in SQL.
 
   - `NLIDBs_Lab_DB_Systems_2025_DSIT.ipynb`
-      - Explores Text-to-SQL, SQL-to-Text, and Data-to-Text generation using LLMs and an Spider database.
+      - Explores Text-to-SQL, SQL-to-Text, and Data-to-Text generation using LLMs and the Spider dataset, a standardized benchmark schema for evaluating NLIDB systems.
 
 ---
 
@@ -63,10 +63,10 @@ It also provides a notebook with NLIDB practice on the well-known Spider dataset
 By completing this lab, you will:
 
   - Gain practical experience with PostgreSQL on a realistic schema.
-  - Understand how Large Language Models (LLMs) like GPT can convert text ↔ SQL, SQL ↔ text and a database table ↔ natural language.
+  - Understand how Large Language Models (LLMs) like GPT can translate between natural language and SQL queries, SQL back to human-readable descriptions, and even tabular data into narrative summaries.
   - Get introduced to techniques powering Natural Language Interfaces to Databases. 
 
-Feel free to explore each query file to build confidence in SQL, from the fundamentals to advanced PostgreSQL techniques.  
+Dive into the query files and the NLIDB notebook to build practical and conceptual mastery across both structured querying and natural language interfaces.  
 If you encounter issues or have suggestions, feel free to open an issue or start a discussion!
 
 **Note:**  
@@ -74,6 +74,6 @@ This project assumes you have access to a PostgreSQL database loaded with a comp
 If you need help importing the schema or if you are interested in obtaining the database itself (since it cannot be uploaded here), feel free to contact me directly and I can share it with you privately (Google Drive, Dropbox, etc.).
 
 **Final Note:**  
-This lab provides just an introductory glimpse into SQL. In real-world applications, especially with today's cloud-based databases, professionals often manage much larger and more complex datasets where queries are longer, optimization is significantly more advanced, and performance tuning becomes critical. Nevertheless, this repository offers an excellent starting point for beginners aiming to build strong SQL fundamentals.
+This lab is a foundational starting point. Real-world databases often involve significantly larger datasets, more complex schemas, and deeper performance tuning. Still, mastering the principles here prepares you well for those challenges.
 
 ---
