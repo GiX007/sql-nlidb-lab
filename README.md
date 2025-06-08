@@ -11,10 +11,9 @@ Additionally, the lab includes a notebook for Natural Language Interface to Data
 
 ## Contents:
 
-  - imdb_schema.png
-    
-    - An entity-relationship diagram illustrating the IMDb-style schema used in the queries.
-    - Serves as a reference for understanding table relationships, primary keys, foreign keys, and attributes.
+  - docs/
+    -  A_DBMS_Through_the_X_Rays.pdf 
+        - A theoretical guide covering DBMS internals (query plans, transactions, locking, recovery, storage, indexing).
 
   - queries/
     - **00_database_manipulation.sql**
@@ -55,6 +54,23 @@ Additionally, the lab includes a notebook for Natural Language Interface to Data
 
   - `NLIDBs_Lab_DB_Systems_2025_DSIT.ipynb`
       - Explores Text-to-SQL, SQL-to-Text, and Data-to-Text generation using LLMs and the Spider dataset, a standardized benchmark schema for evaluating NLIDB systems.
+
+  - imdb_schema.png
+    
+    - An entity-relationship diagram illustrating the IMDb-style schema used in the queries.
+    - Serves as a reference for understanding table relationships, primary keys, foreign keys, and attributes.
+
+---
+
+## DBMS Architecture & Internals Guide
+
+This repository also includes a detailed pdf guide titled "A DBMS Through the X-Rays" located in the docs folder. It introduces the internal layers of a Database Management System:
+
+  - Request Processing Layer — parsing, authorization, query optimization
+  - Concurrent Access Layer — transactions, isolation, locking, and recovery
+  - Storage Layer — files, buffer manager, indexing, and I/O cost modeling
+
+Use this pdf to solidify your understanding of how queries are processed, optimized, and executed under the hood.
 
 ---
 
