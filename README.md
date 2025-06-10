@@ -78,9 +78,9 @@ Use this pdf to solidify your understanding of how queries are processed, optimi
 
 By completing this lab, you will:
 
+  - Get an introduction to how a DBMS is structured and works internally.
   - Gain practical experience with PostgreSQL on a realistic schema.
-  - Understand how Large Language Models (LLMs) like GPT can translate between natural language and SQL queries, SQL back to human-readable descriptions, and even tabular data into narrative summaries.
-  - Get introduced to techniques powering Natural Language Interfaces to Databases. 
+  - Get introduced to techniques powering Natural Language Interfaces to Databases. Understand how Large Language Models (LLMs) like GPT can translate between natural language and SQL queries, SQL back to human-readable descriptions, and even tabular data into narrative summaries.
 
 Dive into the query files and the NLIDB notebook to build practical and conceptual mastery across both structured querying and natural language interfaces.  
 If you encounter issues or have suggestions, feel free to open an issue or start a discussion!
