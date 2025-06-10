@@ -9,6 +9,8 @@ It spans beginner to advanced PostgreSQL concepts such as CTEs, subqueries, wind
 
 Additionally, the lab includes a notebook for Natural Language Interface to Databases (NLIDB) tasks using the Spider dataset — a benchmark schema widely used for evaluating Text-to-SQL systems. The notebook showcases how LLMs (e.g., GPT) can translate between natural language, SQL, and tabular data.
 
+An introduction to how Database Management Systems (DBMS) work under the hood is also included to build foundational understanding.
+
 ## Contents:
 
   - docs/
