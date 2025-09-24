@@ -93,5 +93,3 @@ If you need help importing the schema or if you are interested in obtaining the 
 
 **Final Note:**  
 This lab is a foundational starting point. Real-world databases often involve significantly larger datasets, more complex schemas, and deeper performance tuning. Still, mastering the principles here prepares you well for those challenges.
-
----
